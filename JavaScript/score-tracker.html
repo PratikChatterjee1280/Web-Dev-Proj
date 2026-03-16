@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>Score-tracking</head>
+
+<body>
+    <p id="score">
+        Score: 0
+    </p>
+
+    <button onclick="addPoint()">+1</button>
+    <button onclick="reducePoint()">-1</button>
+    <button onclick="resetPoint()">Reset</button>
+
+    <script>
+        let score = 0;
+
+        function updateScore(){
+            document.getElementById("score").innerHTML = `Score: ${score}`;
+        }
+        function addPoint() {
+            score += 1;
+            updateScore();
+        }
+
+        function reducePoint(){
+            score -= 1;
+            updateScore();
+        }
+        function resetPoint(){
+            score = 0;
+            updateScore();
+        }
+
+
+    </script>
+
+    
+</body>

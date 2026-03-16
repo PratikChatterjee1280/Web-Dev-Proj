@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 2026</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        h2.title {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 3rem 2rem;
+            max-width: 600px;
+            width: 90%;
+            margin: auto;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #questions {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        #user-answer {
+            width: 80%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        #user-answer:focus {
+            border-color: #3498db;
+        }
+
+        #user-answer:disabled {
+            background-color: #f8f9fa;
+            color: #7f8c8d;
+            cursor: not-allowed;
+            border-color: #e0e6ed;
+        }
+
+        #result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            min-height: 1.5em;
+            /* Reserve space so layout doesn't jump */
+            color: #27ae60;
+        }
+
+        .controls {
+            margin-top: auto;
+            /* Push to bottom of container */
+            padding-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 30px;
+            /* Round buttons */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(2px);
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Next button */
+        button:nth-child(2) {
+            background-color: #2ecc71;
+            box-shadow: 0 4px 6px rgba(46, 204, 113, 0.3);
+        }
+
+        button:nth-child(2):hover:not(:disabled) {
+            background-color: #27ae60;
+        }
+
+        /* Previous button */
+        button:nth-child(3) {
+            background-color: #95a5a6;
+            box-shadow: 0 4px 6px rgba(149, 165, 166, 0.3);
+        }
+
+        button:nth-child(3):hover:not(:disabled) {
+            background-color: #7f8c8d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h2 class="title">Quiz 2026</h2>
+    </div>
+
+    <div class="quiz-container">
+        <div id="questions">Questions will appear here!!</div>
+
+        <div>
+            <input type="text" id="user-answer" placeholder="Type Your Answer">
+        </div>
+
+        <p id="result"></p>
+
+        <div class="controls">
+            <button id="submit-btn" onclick="checkAnswer()">Submit</button>
+            <button onclick="nextQuestion()">Next Question</button>
+            <button onclick="previousQuestion()">Previous Question</button>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+
+        // Added userAnswer state tracking for each question
+        let questions = [
+            { text: "What is 2+2?", answer: "4", userAnswer: null, isCorrect: false },
+            { text: "What is the capital of India?", answer: "Delhi", userAnswer: null, isCorrect: false },
+            { text: "What is 10 - 6?", answer: "4", userAnswer: null, isCorrect: false },
+            { text: "Who is your favourite player?", answer: "Virat Kohli", userAnswer: null, isCorrect: false }
+        ];
+        let current_index = 0;
+
+        function show_question() {
+            let currentQuestion = questions[current_index];
+            document.getElementById("questions").innerHTML = currentQuestion.text;
+
+            let answerInput = document.getElementById("user-answer");
+            let resultEl = document.getElementById("result");
+            let submitBtn = document.getElementById("submit-btn");
+
+            // Check if user already answered this question
+            if (currentQuestion.userAnswer !== null) {
+                answerInput.value = currentQuestion.userAnswer;
+                answerInput.disabled = true;
+                submitBtn.disabled = true;
+
+                if (currentQuestion.isCorrect) {
+                    resultEl.innerHTML = "Correct!!!";
+                    resultEl.style.color = "#27ae60"; // Green for correct
+                } else {
+                    resultEl.innerHTML = "Wrong!!";
+                    resultEl.style.color = "#e74c3c"; // Red for wrong
+                }
+            } else {
+                // Fresh question state
+                answerInput.value = "";
+                answerInput.disabled = false;
+                submitBtn.disabled = false;
+                resultEl.innerHTML = "";
+                resultEl.style.color = "#27ae60"; // Reset color
+            }
+        }
+
+        show_question();
+
+        function checkAnswer() {
+            let currentQuestion = questions[current_index];
+
+            // If already answered, do not proceed
+            if (currentQuestion.userAnswer !== null) {
+                return;
+            }
+
+            let userAnswer = document.getElementById("user-answer").value.trim();
+
+            // Guard clause if user enters nothing
+            if (!userAnswer) return;
+
+            let isCorrect = userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase();
+
+            // Record answer state
+            currentQuestion.userAnswer = userAnswer;
+            currentQuestion.isCorrect = isCorrect;
+
+            let resultEl = document.getElementById("result");
+
+            if (isCorrect) {
+                resultEl.innerHTML = "Correct!!!";
+                resultEl.style.color = "#27ae60"; // Green for correct
+                score += 1;
+            }
+            else {
+                resultEl.innerHTML = "Wrong!!";
+                resultEl.style.color = "#e74c3c"; // Red for wrong
+            }
+
+            // Lock input and button upon submitting
+            document.getElementById("user-answer").disabled = true;
+            document.getElementById("submit-btn").disabled = true;
+        }
+
+        function nextQuestion() {
+            current_index += 1;
+
+            if (current_index < questions.length) {
+                show_question();
+            }
+            else {
+                // Show final results and hide navigation
+                document.getElementById("questions").innerHTML = `Quiz done! You scored ${score} out of ${questions.length}`;
+                document.getElementById("result").innerHTML = "";
+                document.getElementById("user-answer").style.display = "none";
+                document.querySelector(".controls").style.display = "none";
+            }
+        }
+
+        function previousQuestion() {
+            if (current_index > 0) {
+                current_index -= 1;
+                show_question();
+
+                // Ensure elements are visible if coming back from end screen
+                document.getElementById("user-answer").style.display = "inline-block";
+                document.querySelector(".controls").style.display = "flex";
+            }
+        }
+    </script>
+</body>
+
+</html>

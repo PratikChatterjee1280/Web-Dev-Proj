@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Timer</title>
+    <link rel="stylesheet" href="/JavaScript/pomodoro app/style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="title">🍅 Focus Timer</h1>
+        <div class="timer-display" id="Timer">25:00</div>
+        <div class="buttons">
+            <button onclick="startTimer()">Start</button>
+            <button onclick="pause_timer()">Pause</button>
+            <button onclick="reset_timer()">Reset</button>
+        </div>
+        <div class="time-controls">
+            <button onclick="remove_time()">-5 min</button>
+            <button onclick="add_time()">+5 min</button>
+        </div>
+    </div>
+
+    <script>
+        let totalSeconds = 1500; // 25 minutes in seconds
+        let timer;
+
+        function update_display() {
+            let minutes = Math.floor(totalSeconds / 60); // 25
+            let seconds = totalSeconds % 60;             // 0
+            let display = `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`; //to display 24:05 and not 24:9
+            document.getElementById("Timer").innerHTML = display;
+        }
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(function () {
+                totalSeconds--;
+                if (totalSeconds > 0)
+                    update_display();
+                else {
+                    document.getElementById("Timer").innerHTML = "Time over";
+                    clearInterval(timer);
+                }
+            }, 1000)
+
+        }
+
+        function pause_timer() {
+            clearInterval(timer);
+        }
+
+        function reset_timer() {
+            clearInterval(timer);
+            totalSeconds = 1500;
+            update_display();
+        }
+
+        function add_time() {
+            totalSeconds += 300;
+            update_display();
+        }
+
+        function remove_time() {
+            totalSeconds -= 300;
+            update_display();
+        }
+    </script>
+</body>
+
+</html>

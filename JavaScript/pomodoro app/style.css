@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: #16213e;
+    padding: 50px 60px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+    color: #e94560;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.timer-display {
+    font-size: 5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 40px;
+    letter-spacing: 4px;
+}
+
+.buttons button,
+.time-controls button {
+    background: #e94560;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    margin: 6px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.buttons button:hover,
+.time-controls button:hover {
+    background: #c73652;
+}
+
+.time-controls {
+    margin-top: 16px;
+}
+
+.time-controls button {
+    background: #0f3460;
+}
+
+.time-controls button:hover {
+    background: #1a4f8a;
+}

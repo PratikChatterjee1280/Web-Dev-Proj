@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="mood-showing">Pick a Mood</p>
+
+<button onclick="showmood('😄 Happy')">Happy</button>
+<button onclick="showmood('😢 Sad')">Sad</button>
+<button onclick="showmood('🔥 Productive')">Productive</button>
+<button onclick="showmood('😎 Chill')">Chill</button>
+
+<button onclick="feelingLucky()">Feeling Lucky</button>
+
+<script>
+    function showmood(moods){
+        document.getElementById("mood-showing").innerHTML = moods;
+    }
+
+    function feelingLucky(){
+        let moods = ['😄 Happy', '😢 Sad', '🔥 Productive', '😎 Chill'];
+        document.getElementById("mood-showing").innerHTML = moods[Math.floor(Math.random() * moods.length)];
+    }
+</script>
+</body>
+</html>
