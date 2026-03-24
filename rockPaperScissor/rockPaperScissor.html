@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rock Paper Scissor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Rock Paper Scissors</h1>
+
+        <div id="result">Make your choice!</div>
+        <div id="computer-choice">Computer chose: ?</div>
+
+        <div class="buttons">
+            <button onclick="play('Rock')">🪨 Rock</button>
+            <button onclick="play('Paper')">📄 Paper</button>
+            <button onclick="play('Scissor')">✂️ Scissor</button>
+            <button onclick="resetScore()">Reset Score</button>
+        </div>
+
+
+        <div id="score">Player: 0 | Computer: 0</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

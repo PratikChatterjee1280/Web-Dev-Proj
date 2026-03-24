@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+/* ─── Reset & Base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ─── Animated background orbs ─────────────────────────────── */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  pointer-events: none;
+  animation: float 8s ease-in-out infinite alternate;
+}
+
+body::before {
+  width: 420px;
+  height: 420px;
+  background: #7c3aed;
+  top: -100px;
+  left: -100px;
+}
+
+body::after {
+  width: 350px;
+  height: 350px;
+  background: #06b6d4;
+  bottom: -100px;
+  right: -80px;
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    transform: translateY(40px) scale(1.08);
+  }
+}
+
+/* ─── Container ─────────────────────────────────────────────── */
+.container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  padding: 48px 52px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  max-width: 520px;
+  width: 92vw;
+  animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Heading ────────────────────────────────────────────────── */
+h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #a78bfa, #38bdf8, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 32px;
+  text-shadow: none;
+}
+
+/* ─── Result & Computer choice ──────────────────────────────── */
+#result,
+#computer-choice {
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.4s ease, color 0.4s ease,
+    box-shadow 0.4s ease, transform 0.25s ease;
+  min-height: 50px;
+}
+
+#result {
+  font-size: 1.3rem;
+}
+
+/* Dynamic result states (set via JS or class toggling) */
+#result.win {
+  background: rgba(52, 211, 153, 0.18);
+  border-color: #34d399;
+  color: #6ee7b7;
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+}
+
+#result.lose {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #ef4444;
+  color: #fca5a5;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+#result.draw {
+  background: rgba(251, 191, 36, 0.18);
+  border-color: #fbbf24;
+  color: #fde68a;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+/* ─── Buttons wrapper ───────────────────────────────────────── */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin: 28px 0 24px;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+.buttons button {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 13px 26px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+/* Ripple effect on click */
+.buttons button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+.buttons button:active::after {
+  opacity: 1;
+}
+
+/* Rock – purple */
+.buttons button:nth-child(1) {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+}
+
+.buttons button:nth-child(1):hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.6);
+}
+
+/* Paper – cyan */
+.buttons button:nth-child(2) {
+  background: linear-gradient(135deg, #0891b2, #38bdf8);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(8, 145, 178, 0.45);
+}
+
+.buttons button:nth-child(2):hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(8, 145, 178, 0.6);
+}
+
+/* Scissor – pink */
+.buttons button:nth-child(3) {
+  background: linear-gradient(135deg, #be185d, #f472b6);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(190, 24, 93, 0.45);
+}
+
+.buttons button:nth-child(3):hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(190, 24, 93, 0.6);
+}
+
+/* Reset – subtle ghost */
+.buttons button:nth-child(4) {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+}
+
+.buttons button:nth-child(4):hover {
+  transform: translateY(-3px) scale(1.03);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.buttons button:active {
+  transform: scale(0.96) translateY(0) !important;
+}
+
+/* ─── Score ──────────────────────────────────────────────────── */
+#score {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(56, 189, 248, 0.25));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#score:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.3);
+}
+
+/* ─── Bounce animation on result update ─────────────────────── */
+@keyframes popIn {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pop {
+  animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .container {
+    padding: 36px 24px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .buttons button {
+    padding: 11px 20px;
+    font-size: 0.9rem;
+  }
+}
