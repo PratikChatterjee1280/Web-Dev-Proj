@@ -67,6 +67,7 @@ body {
     }
 }
 
+
 @keyframes fadeTranslate {
     from {
         opacity: 0;
@@ -81,5 +82,6 @@ body {
 .text-card{
     align-items: center;
     font-size: 3em;
+    
 }
 
